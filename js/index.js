@@ -1,35 +1,29 @@
 var mlist = [];
 function upData() {
-    var id = Number(document.getElementById('id').value);
-    var mname = document.getElementById('mname').value;
-    var auth = document.getElementById('auth').value;
-    var year = Number(document.getElementById('year').value);
+    var mnow = readData();
     mlist.forEach(function (n) {
-        if (n.id === id) {
-            n.mname = mname;
-            n.auth = auth;
-            n.year = year;
+        if (n.id === mnow.id) {
+            n.mname = mnow.mname;
+            n.auth = mnow.auth;
+            n.year = mnow.year;
         }
     });
     console.table(mlist);
     showData();
 }
 function addData() {
-    var id = Number(document.getElementById('id').value);
-    var mname = document.getElementById('mname').value;
-    var auth = document.getElementById('auth').value;
-    var year = Number(document.getElementById('year').value);
+    var mnow = readData();
     var flag = 0;
     mlist.forEach(function (n, x) {
-        if (n.id == id) {
+        if (n.id == mnow.id) {
             flag = 1;
         }
     });
     if (flag == 0) {
-        mlist.push({ id: id, mname: mname, auth: auth, year: year });
+        mlist.push(mnow);
     }
     else {
-        alert("ID : " + id + " already exists");
+        alert("ID : " + mnow.id + " already exists");
     }
     console.table(mlist);
     showData();
@@ -44,16 +38,24 @@ function delData(i) {
     showData();
 }
 function showData() {
+    var x = "<div id='h'>MOVIE</div><div id='h'>AUTHOR</div><div id='h'>YEAR</div><div id='h'></div>";
     if (mlist.length === 0) {
         document.getElementById('out').style.visibility = "hidden";
+        // x="<div id='no'> List is Empty </div>";
     }
     else {
         document.getElementById('out').style.visibility = "visible";
+        mlist.forEach(function (n) {
+            x += "<div>" + n.mname + "</div><div>" + n.auth + "</div><div>" + n.year + "</div><button id='close' onclick='delData(" + n.id + ")'><i class='fa fa-close'></i></button>";
+        });
     }
-    var x = "<div id='h'>MOVIE</div><div id='h'>AUTHOR</div><div id='h'>YEAR</div><div id='h'></div>";
-    mlist.forEach(function (n) {
-        x += "<div>" + n.mname + "</div><div>" + n.auth + "</div><div>" + n.year + "</div><button id='close' onclick='delData(" + n.id + ")'><i class='fa fa-close'></i></button>";
-    });
     document.getElementById('out').innerHTML = x;
+}
+function readData() {
+    var id = Number(document.getElementById('id').value);
+    var mname = document.getElementById('mname').value;
+    var auth = document.getElementById('auth').value;
+    var year = Number(document.getElementById('year').value);
+    return { id: id, mname: mname, auth: auth, year: year };
 }
 console.table(mlist);

@@ -94,6 +94,13 @@ body{
     padding-left: 45px;
 }
 
+#no{
+    grid-column: 1/-1;
+    justify-self: center;
+    align-self: center;
+    font-size: xx-large;
+}
+
 #close{
     box-sizing: border-box;
     border: none;
