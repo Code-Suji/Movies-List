@@ -37,7 +37,8 @@ function addData() {
 function delData(i) {
     mlist.forEach(function (n, x) {
         if (n.id == i) {
-            delete mlist[x];
+            // delete mlist[x];
+            mlist.splice(x, 1);
         }
     });
     showData();

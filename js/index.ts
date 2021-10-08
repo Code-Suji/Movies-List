@@ -46,7 +46,8 @@ function addData(){
 function delData(i:number){
     mlist.forEach((n,x)=>{
         if(n.id == i){
-            delete mlist[x];
+            // delete mlist[x];
+            mlist.splice(x,1);
         }
         
     })
